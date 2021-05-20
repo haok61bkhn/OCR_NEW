@@ -1,0 +1,52 @@
+{
+  "data": {
+    "pattern_name": "giấy ủy quyền",
+    "keyword": "giấy ủy quyền",
+    "type": "line",
+    "image_sample": "http://10.9.3.50:8888/iPM/ImageCustomer/16192439553595584.jpg",
+    "attribute": [
+      {
+        "key_name": "Bên Ủy Quyền",
+        "start_c": "Bên Ủy Quyền",
+        "end_c": "Bên được ủy quyền",
+        "type": "title",
+        "num_of_appeer": -1
+      },
+      {
+        "key_name": "Ông",
+        "start_c": "Ông:",
+        "end_c": "Sinh ngày",
+        "type": "field",
+        "num_of_appeer": -1
+      },
+      {
+        "key_name": "Chứng minh nhân dân số",
+        "start_c": "-; Chứng minh nhân dân số",
+        "end_c": "Nơi đăng ký hộ khẩu thường trú",
+        "type": "field",
+        "num_of_appeer": -1
+      },
+      {
+        "key_name": "Bên được ủy quyền",
+        "start_c": "Bên được ủy quyền",
+        "end_c": "-1",
+        "type": "title",
+        "num_of_appeer": -1
+      },
+      {
+        "key_name": "Sinh ngày",
+        "start_c": "Sinh ngày",
+        "end_c": "Dân tộc,
+        "type": "field",
+        "num_of_appeer": -1
+      },
+      {
+        "key_name": "Nội dung phạm vi ủy quyền",
+        "start_c": "Nội dung phạm vi ủy quyền",
+        "end_c": "Bên Ủy Quyền;Bên được ủy",
+        "type": "field",
+        "num_of_appeer": -1
+      }
+    ]
+  }
+}

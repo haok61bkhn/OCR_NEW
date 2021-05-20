@@ -33,8 +33,19 @@ class OCR_Document:
         index_last=len(self.list_texts)
         for att in self.attribute:
             if(att["type"]=="title"):
-                index_first=max(self.get_index_keyword(att['start_c'],self.list_texts,index_first,-1),)
-                self.index_key[id]
+                index_first_cur=max(self.get_index_keyword(att['start_c'],self.list_texts,index_first,-1),index_first)
+                index_last_cur=self.get_index_keyword(att['end_c'],self.list_texts,index_first_cur,-1)
+                title=att['key_name']
+                print("-"*20)
+                print(title)
+            else:
+                index_first_cur=max(self.get_index_keyword(att['start_c'],self.list_texts,index_first,-1),index_first)
+                index_last_cur=self.get_index_keyword(att['end_c'],self.list_texts,index_first_cur,-1)
+                kn=att['key_name']
+                print(kn," ",index_first_cur,"  ",index_last_cur)
+
+
+
 
 
 
