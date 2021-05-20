@@ -21,7 +21,7 @@
       },
       {
         "key_name": "Chứng minh nhân dân số",
-        "start_c": "-; Chứng minh nhân dân số",
+        "start_c": "-;Chứng minh nhân dân số",
         "end_c": "Nơi đăng ký hộ khẩu thường trú",
         "type": "field",
         "num_of_appeer": -1
@@ -36,12 +36,12 @@
       {
         "key_name": "Sinh ngày",
         "start_c": "Sinh ngày",
-        "end_c": "Dân tộc,
+        "end_c": "Dân tộc",
         "type": "field",
         "num_of_appeer": -1
       },
       {
-        "key_name": "Nội dung phạm vi ủy quyền",
+        "key_name": "Nội dung và phạm vi ủy quyền",
         "start_c": "Nội dung phạm vi ủy quyền",
         "end_c": "Bên Ủy Quyền;Bên được ủy",
         "type": "field",

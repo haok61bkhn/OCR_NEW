@@ -24,25 +24,71 @@ class OCR_Document:
     #==================================================
    
     def setup_config(self,pattern_name):
-        attributes = self.conn.get_document(pattern_name)
-        self.attribute=attributes[0]
+        doc = self.conn.get_document(pattern_name)[0]
+
+        self.attribute=doc['attribute']
+        print(self.attribute)
         self.index_key={} 
 
     def get_indexs(self):
+        print(self.list_texts)
         index_first=0
         index_last=len(self.list_texts)
         for att in self.attribute:
             if(att["type"]=="title"):
-                index_first_cur=max(self.get_index_keyword(att['start_c'],self.list_texts,index_first,-1),index_first)
-                index_last_cur=self.get_index_keyword(att['end_c'],self.list_texts,index_first_cur,-1)
+                
+                for c in att['start_c'].split(";"):
+                   index_cur=self.get_index_keyword(c,self.list_texts,index_first,-1)
+                   if(index_cur!=-1):
+                       index_first=index_cur
+                       
+                       break
+                
+         
+                for c in att['end_c'].split(";"):
+                    if(c=="-1"):
+                       index_cur=len(self.list_texts)
+                    else:
+                        index_cur=self.get_index_keyword(c,self.list_texts,index_first,-1)
+                    if(index_cur!=-1):
+                       index_last=index_cur
+                       break
+                
                 title=att['key_name']
+                print()
                 print("-"*20)
-                print(title)
+                
+                print(title,"  ",index_first," ",index_last)
+
             else:
-                index_first_cur=max(self.get_index_keyword(att['start_c'],self.list_texts,index_first,-1),index_first)
-                index_last_cur=self.get_index_keyword(att['end_c'],self.list_texts,index_first_cur,-1)
+                index_f=-1
+                index_l=-2
+               
+                for c in att['start_c'].split(";"):
+                    print(c)
+                    index_cur=self.get_index_keyword(c,self.list_texts,index_first,index_last)
+                    
+                    if(index_cur!=-1):
+                        print(c,"   ",index_cur)
+                        index_f=index_cur   
+                        break
+                
+            
+                for c in att['end_c'].split(";"):
+                    index_cur=self.get_index_keyword(c,self.list_texts,index_first,index_last)
+                    if(index_cur!=-1):
+                        print(c,"   ",index_cur)
+                        if(index_l==-2):
+                            index_l=index_cur
+                        else:
+                            index_l=min(index_l,index_cur)
+                       
                 kn=att['key_name']
-                print(kn," ",index_first_cur,"  ",index_last_cur)
+                print("---------------------------",kn,"--",index_f,"-------",index_l)
+                if(index_f!=-1 and index_l!=-2):
+                    for i in range(index_f,index_l):
+                        print(self.list_texts[i])
+
 
 
 
@@ -127,6 +173,7 @@ class OCR_Document:
         return lines
     
     def get_index_keyword(self,keyword,list_text,begin,end):
+        list_text=list_text.copy()
         if(end==-1):
             end=len(list_text)
         similar_min=1000
@@ -134,6 +181,7 @@ class OCR_Document:
         index_final=-1
         for i in range(begin,end):
             check,similar,similar_real=self.check_keyword(keyword,list_text[i])
+            
             if check and similar < similar_min:
                 similar_min=similar
                 index_final=i
@@ -199,18 +247,18 @@ class OCR_Document:
     def main(self,image,pattern_name): # type #uyquyen,dkkd,bonhiem
         self.setup_config(pattern_name=pattern_name)
         self.prepare_ocr(image,remove_red_word=True)
-        
+        self.get_indexs()
 
 
 if __name__=="__main__":
     conn=Connector("doc")
     ocr=OCR_Document(conn)
     
-    ocr.setup_config("giấy ủy nhiệm")
+    # ocr.setup_config("giấy ủy nhiệm")
     
-    # img = cv2.imread("data/uyquyen.png")
+    img = cv2.imread("data/uyquyen.png")
   
-    # ocr.main(img,type="uyquyen")
+    ocr.main(img,pattern_name="giấy ủy quyền")
     # keyword= {"id":0,"parent_id":-1,"define":{"start_key":"Bên ủy quyền","end_key":"bên được ủy quyền"}}
     # keyword1={"id":1,"parent_id":0,"define":{"start_key":"Ông","end_key":"Sinh ngày"}}
     # ocr.search(keyword)

@@ -13,7 +13,7 @@ from connector import Connector
 import cv2
 import uuid
 import os
-
+from fastapi.middleware.cors import CORSMiddleware
 
 class Item1(BaseModel): 
     data: dict
@@ -29,6 +29,15 @@ dir_image="data_images"
 
 app = FastAPI()
 
+origins="0.0.0.0:1313"
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 def read_imagefile(data) :
     image = Image.open(BytesIO(data)).convert('RGB') 
